@@ -1,0 +1,37 @@
+html, body {
+    width: 300px;
+    background-color: #00A7E4;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.title {
+    width: 100%;
+    padding: 4px;
+    text-align: center;
+    font-size: 110%;
+    background-color: #000fe4;
+}
+
+.event {
+    padding-bottom: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 110%;
+}
+
+.intranet {
+    width: 100%;
+    color: #000000;
+    padding: 4px;
+    text-align: right;
+    cursor: pointer;
+}
+
+.intranet {
+    background-color: #CFF2F2;
+}
+
+td {
+    text-align: center;
+}

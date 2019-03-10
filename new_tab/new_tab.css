@@ -1,0 +1,69 @@
+html, body {
+    background-size: contain;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    overflow: hidden;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    position: absolute;
+    width: 100%;
+    font-family: "Nimbus Sans", sans-serif;
+    font-size: 126px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 2px 2px black;
+}
+
+.welcome {
+    font-family: "Nimbus Sans", sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+#pexel_logo {
+    cursor: pointer;
+    position: absolute;
+    transform: scale(0.2);
+    top: 88%;
+    left: 74.7%;
+}
+
+#events {
+    position: absolute;
+    left: 2%;
+    top: 5%;
+    width: 25%;
+    background-color: rgba(0, 167, 228, 0.3);
+    border-radius: 10px 10px 5px 5px;
+    color: #FFFFFF;
+}
+
+.title {
+    background-color: rgba(0, 167, 228, 1);
+    border-radius: 10px 10px 0 0;
+    line-height: 150%;
+    text-align: center;
+}
+
+.module {
+    cursor: pointer;
+}
+
+tr {
+
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 167, 228, 0.3);
+    color: #FFFFFF;
+}

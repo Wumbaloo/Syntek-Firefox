@@ -17,7 +17,7 @@
 
   "browser_action": {
     "browser_style": true,
-    "default_popup": "popup/show_events.html",
+    "default_popup": "popup/showEvents.html",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",

@@ -7,14 +7,15 @@ function launchSearch()
 
     if (!text || text.trim().length == 0)
         return;
-    chrome.storage.sync.get("openSearchNewTab", (res) => {
+    let getSearchNewTab = browser.storage.sync.get('openSearchNewTab');
+    getSearchNewTab.then((res) => {
         if (res.openSearchNewTab) {
             if (text.match(withoutHttps)) {
-                 chrome.tabs.create({ url: "https://" + text + "/" });
+                browser.tabs.create({ url: "https://" + text + "/" });
              } else if (text.match(urlRegex)) {
-                 chrome.tabs.create({ url: text });
+                 browser.tabs.create({ url: text });
              } else
-                 chrome.tabs.create({ url: "https://google.com/search?q=" + text });
+                 browser.tabs.create({ url: "https://google.com/search?q=" + text });
         } else {
            if (text.match(withoutHttps)) {
                 window.location = "https://" + text + "/";
@@ -36,7 +37,7 @@ function handleNotifySlider()
         if (beforeTimerSlider.value < 2 || beforeTimerSlider.value > 30 || Number(beforeTimerSlider.value) == "NaN")
             return;
         beforeTimerText.innerHTML = beforeTimerSlider.value;
-        chrome.storage.sync.set({ notifyTimer: beforeTimerSlider.value });
+        browser.storage.sync.set({ notifyTimer: beforeTimerSlider.value });
         updateNotifyMinutes(beforeTimerSlider.value);
     });
 }
@@ -44,14 +45,14 @@ function handleNotifySlider()
 function handleBackgroundButtons()
 {
     $(".refreshPicture").click(() => {
-        chrome.storage.sync.set({ background: null });
+        browser.storage.sync.set({ background: null });
         updateBackground();
     });
     $(".keepBackground").click(() => {
-        chrome.storage.sync.set({ background: document.querySelector("body").style.backgroundImage });
+        browser.storage.sync.set({ background: document.querySelector("body").style.backgroundImage });
     });
     $(".clearBackground").click(() => {
-        chrome.storage.sync.set({ background: "url(../images/black.png)" });
+        browser.storage.sync.set({ background: "url(../images/black.png)" });
         updateBackground();
     });
 }
@@ -59,27 +60,29 @@ function handleBackgroundButtons()
 function handleOpenEvent()
 {
     let openEventNewTabElement = document.getElementById("openEventNewTab");
-
-    chrome.storage.sync.get("openEventNewTab", (res) => {
+    let getOpenEventNewTab = browser.storage.sync.get('openEventNewTab');
+    
+    getOpenEventNewTab.then((res) => {
         if (res.openEventNewTab)
             openEventNewTabElement.checked = res.openEventNewTab;
         else if (res.openEventNewTab == null || res.openEventNewTab == "undefined")
             openEventNewTabElement.checked = true;
     });
     openEventNewTabElement.addEventListener("input", () => {
-        chrome.storage.sync.set({ openEventNewTab: openEventNewTabElement.checked });
+        browser.storage.sync.set({ openEventNewTab: openEventNewTabElement.checked });
     });
 }
 
 function handleOpenSearch()
 {
     let openSearchNewTabElement = document.getElementById("openSearchNewTab");
-
-    chrome.storage.sync.get("openSearchNewTab", (res) => {
+    let getOpenSearchNewTab = browser.storage.sync.get('openSearchNewTab');
+    
+    getOpenSearchNewTab.then((res) => {
         openSearchNewTabElement.checked = res.openSearchNewTab;
     });
     openSearchNewTabElement.addEventListener("input", () => {
-        chrome.storage.sync.set({ openSearchNewTab: openSearchNewTabElement.checked });
+        browser.storage.sync.set({ openSearchNewTab: openSearchNewTabElement.checked });
     });
 }
 

@@ -7,12 +7,12 @@ function saveOptions(e) {
 }
 
 function restoreOptions() {
-    let gettingItem = browser.storage.sync.get('username');
-    gettingItem.then((res) => {
+    let getItem = browser.storage.sync.get('username');
+    getItem.then((res) => {
         document.querySelector("#username").value = res.username || "";
     });
-    gettingItem = browser.storage.sync.get('autologin');
-    gettingItem.then((res) => {
+    getItem = browser.storage.sync.get('autologin');
+    getItem.then((res) => {
         document.querySelector("#autologin").value = res.autologin || "";
     });
 }

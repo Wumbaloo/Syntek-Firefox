@@ -1,3 +1,10 @@
+function getRandomOfflineBackground()
+{
+    let photo = "../images/" + (1 + Math.floor(Math.random() * 10)) + ".jpg";
+
+    return (photo);
+}
+
 function get_photos()
 {
     let request = new XMLHttpRequest();
@@ -15,13 +22,6 @@ function get_photos()
 function get_random_photos(photos)
 {
     let photo = photos[Math.floor(Math.random() * photos.length)];
-
-    return (photo);
-}
-
-function get_random_photos_offline()
-{
-    let photo = "../images/" + (1 + Math.floor(Math.random() * 10)) + ".jpg";
 
     return (photo);
 }
@@ -67,10 +67,14 @@ function update_username() {
     });
 }
 
-function open_pexel() {
+function openPexelURL() {
     browser.tabs.create({
         url: "https://www.pexels.com/"
     });
+}
+
+function openIntraEpitech() {
+    window.location = "https://intra.epitech.eu/";
 }
 
 function draw_registered(registered) {
@@ -106,17 +110,17 @@ function draw_registered(registered) {
 let request = get_photos();
 let photo_url;
 if (!request || request.status !== 200) {
-    photo_url = get_random_photos_offline();
+    photo_url = getRandomOfflineBackground();
 } else {
     let photos = JSON.parse(request["responseText"]);
     if (photos)
         photo_url = get_photo_url(get_random_photos(photos["photos"]));
     else
-        photo_url = get_random_photos_offline();
+        photo_url = getRandomOfflineBackground();
 }
 document.body.style.backgroundSize = "100%";
 document.body.style.backgroundImage = "url(" + photo_url + ")";
-document.getElementById("pexel_logo").addEventListener("click", open_pexel);
+document.getElementById("pexel_logo").addEventListener("click", openPexelURL);
 
 document.addEventListener("click", function(e) {
     if (!e.target["classList"].contains("intranet") && !e.target["classList"].contains("module")) {
@@ -128,6 +132,14 @@ document.addEventListener("click", function(e) {
         show_event(e.target || e.srcElement);
 });
 
+function fadeElements()
+{
+    $("#events").fadeIn(1000);
+    $("#time").fadeIn(1000);
+    $(".welcome").fadeIn(1000);
+    $(".searchbox-container").fadeIn(1000);
+}
+
 $(document).ready(function() {
     start_clock();
     update_username();
@@ -135,12 +147,21 @@ $(document).ready(function() {
     let cell = row.insertCell(0);
     cell.style.textAlign = "center";
     cell.innerHTML = "We're trying to recover your schedule..";
+
     let gettingItem = browser.storage.sync.get('autologin');
     gettingItem.then((res) => {
         let registered = get_registered_from_planning(get_planning(res.autologin));
         registered = get_next_registered(registered);
         draw_registered(registered);
     });
-    $("#events").fadeIn(2000);
-    $(".welcome").fadeIn(2000);
+    fadeElements();
+    document.getElementsByClassName("search-input")[0].addEventListener("keydown", (event) => {
+        if (event.keyCode != 13)
+            return;
+        launchSearch();
+        event.preventDefault();
+    });
+    $('.search-input').focus();
+    $(".search-go").click(launchSearch);
+    $(".gotoIntra").click(openIntraEpitech);
 });
